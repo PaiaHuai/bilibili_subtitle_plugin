@@ -1,6 +1,6 @@
 version: 0.0.1
 type: plugin
-author: PaiaHuai
+author: paiahuai
 name: bilibili_subtitle_plugin
 label:
   en_US: Bilibili Subtitle Plugin
