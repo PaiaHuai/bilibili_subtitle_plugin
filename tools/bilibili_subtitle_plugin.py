@@ -63,7 +63,7 @@ class BilibiliSubtitlePluginTool(Tool):
         video_id = self._normalize_video_id(video_id)
         if not video_id:
             logger.error(f"Invalid video ID format: {tool_parameters.get('video_id', '')}")
-            raise Exception(f"Invalid video ID format. Please provide a valid BV number (e.g., 'BV1g84y1R7oE') or AV number (e.g., 'av170001' or '170001').")
+            raise Exception(f"Invalid video ID format. Please provide a valid BV number (e.g., 'BV1GJ411x7h7') or AV number (e.g., 'av170001' or '170001').")
         logger.info(f"Normalized video ID: {video_id}")
 
         # 4. Use BilibiliEnhancedTool to get subtitles

@@ -517,7 +517,7 @@ def main():
     print("=== B站视频信息和字幕获取增强工具演示 ===")
     
     # 测试视频ID
-    test_video_id = "BV1sthHzaEcH"
+    test_video_id = "BV1GJ411x7h7"
     
     print(f"\n测试视频: {test_video_id}")
     print("注意：此工具需要提供有效的B站登录凭证才能使用")

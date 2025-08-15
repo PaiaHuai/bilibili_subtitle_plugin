@@ -32,7 +32,7 @@ BUVID3 = os.getenv("BUVID3", "")
 
 # 测试用的视频ID列表
 TEST_VIDEOS = [
-    {"id": "BV1sthHzaEcH", "type": "BV号视频"},
+    {"id": "BV1GJ411x7h7", "type": "BV号视频"},
     {"id": "av170001", "type": "av号视频"},
     {"id": "170001", "type": "纯数字（自动转换为av号）"}
 ]

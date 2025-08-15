@@ -10,7 +10,7 @@ description:
     en_US: Extract subtitles from Bilibili videos by providing a video ID
     zh_Hans: 通过提供视频ID从哔哩哔哩视频中提取字幕
     pt_BR: Extrair legendas de vídeos do Bilibili fornecendo um ID de vídeo
-  llm: "This tool extracts subtitles from Bilibili videos. It requires a valid Bilibili video ID in BV format (e.g., 'BV1g84y1R7oE') or AV format (e.g., 'av170001' or just '170001') and returns the subtitle content. Use this tool when users want to get the transcript or subtitles from a Bilibili video."
+  llm: "This tool extracts subtitles from Bilibili videos. It requires a valid Bilibili video ID in BV format (e.g., 'BV1GJ411x7h7') or AV format (e.g., 'av170001' or just '170001') and returns the subtitle content. Use this tool when users want to get the transcript or subtitles from a Bilibili video."
 parameters:
   - name: video_id
     type: string
@@ -23,7 +23,7 @@ parameters:
       en_US: The Bilibili video ID (BV number or AV number) from which to extract subtitles
       zh_Hans: 要提取字幕的哔哩哔哩视频ID（BV号或AV号）
       pt_BR: O ID do vídeo do Bilibili (número BV ou AV) do qual extrair legendas
-    llm_description: "The Bilibili video ID in BV format (e.g., 'BV1g84y1R7oE') or AV format (e.g., 'av170001' or just '170001'). This should be the video identifier, not the full URL."
+    llm_description: "The Bilibili video ID in BV format (e.g., 'BV1GJ411x7h7') or AV format (e.g., 'av170001' or just '170001'). This should be the video identifier, not the full URL."
     form: llm
 output_schema:
   type: object

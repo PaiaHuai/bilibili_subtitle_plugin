@@ -76,14 +76,14 @@
 为了全面测试插件功能，建议使用不同类型的B站视频进行测试：
 
 1. **带有官方字幕的视频**：
-   - 例如：https://www.bilibili.com/video/BV1sthHzaEcH
+   - 例如：https://www.bilibili.com/video/BV1GJ411x7h7
    - 这类视频通常有B站官方提供的字幕
 
 2. **带有UP主自制字幕的视频**：
    - 这类视频的字幕由UP主自己添加
 
 3. **不同格式的视频URL**：
-   - BV号格式：https://www.bilibili.com/video/BV1xx411c7mD
+   - BV号格式：https://www.bilibili.com/video/BV1GJ411x7h7
    - av号格式：https://www.bilibili.com/video/av170001
    - 短链接：https://b23.tv/xxxxxx
 
