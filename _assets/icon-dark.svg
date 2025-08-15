@@ -1,0 +1,24 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 深色背景 -->
+  <rect width="40" height="40" rx="8" fill="#2C2C2C"/>
+  
+  <!-- B站TV形状logo -->
+  <g transform="translate(8, 10)">
+    <!-- 主体TV形状 -->
+    <rect x="2" y="4" width="20" height="14" rx="2" fill="#FB7299"/>
+    
+    <!-- TV天线 -->
+    <line x1="6" y1="4" x2="4" y2="1" stroke="#FB7299" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="18" y1="4" x2="20" y2="1" stroke="#FB7299" stroke-width="1.5" stroke-linecap="round"/>
+    
+    <!-- TV屏幕 -->
+    <rect x="4" y="6" width="16" height="10" rx="1" fill="white"/>
+    
+    <!-- TV底座 -->
+    <rect x="10" y="18" width="4" height="2" rx="1" fill="#FB7299"/>
+    
+    <!-- 装饰性圆点 -->
+    <circle cx="7" cy="11" r="1" fill="#FB7299"/>
+    <circle cx="17" cy="11" r="1" fill="#FB7299"/>
+  </g>
+</svg>
