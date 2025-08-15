@@ -44,6 +44,15 @@
 
 本插件仅用于提取公开视频的字幕内容，不会收集或存储用户的个人信息。提供的Cookie信息仅用于API访问授权，不会被用于其他用途。
 
+## 参考项目
+
+本项目在开发过程中参考了以下优秀的开源项目：
+
+- [dify-plugin-Bilibili-Search](https://github.com/jingfelix/dify-plugin-Bilibili-Search) - Dify平台的B站搜索插件，提供了插件开发的参考实现
+- [bilibili-api](https://github.com/Nemo2011/bilibili-api) - 功能完整的B站API调用库，提供了丰富的API接口参考
+
+感谢这些项目的贡献者为开源社区做出的贡献。
+
 ## 许可证
 
 本项目采用MIT许可证。
