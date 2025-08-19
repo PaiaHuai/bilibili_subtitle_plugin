@@ -23,7 +23,7 @@ This information can be obtained from the browser's developer tools after loggin
 
 ### How to Obtain Credentials
 
-![Credential Acquisition Guide](_assets/凭证获取.png)
+<img src="_assets/凭证获取.png" alt="Credential Acquisition Guide" style="zoom:80%;" />
 
 Follow the steps shown in the image above to obtain Cookie information:
 1. Log in to the Bilibili website
@@ -43,15 +43,16 @@ Follow the steps shown in the image above to obtain Cookie information:
 
 1. Install this plugin on the Dify platform
 2. Configure the necessary Cookie information
-![Credential Configuration](_assets/填写凭证.png)
-3. Enter a Bilibili video ID, for example: BV1GJ411x7h7
-![Enter Video ID](_assets/填入视频ID.png)
-4. The plugin will automatically extract and return subtitle content (currently defaults to Chinese subtitles, or the first available subtitle if Chinese is not available)
-![Output Example](_assets/输出.png)
+<img src="_assets/填写凭证.png" alt="Credential Configuration" style="zoom:50%;" />
+3. Enter a Bilibili video ID, for example: ``BV1GJ411x7h7``
+<img src="_assets/填入视频ID.png" alt="Enter Video ID" style="zoom: 50%;" />
+4. The plugin will automatically extract and return subtitle content
+<img src="_assets/输出.png" alt="Output Example" style="zoom: 50%;" />
 
 ## Notes
 
 - Can only extract subtitles from videos that already have subtitles; does not support automatic subtitle generation
+- Currently defaults to Chinese subtitles, or the first available subtitle if Chinese is not available
 - Requires valid Bilibili account Cookie information
 - Video ID must be a valid Bilibili video ID
 - Supports multiple formats including BV and AV numbers
