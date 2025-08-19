@@ -1,6 +1,6 @@
 from collections.abc import Generator
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 import traceback
 import logging
 from dify_plugin.config.logger_format import plugin_logger_handler
@@ -119,7 +119,6 @@ class BilibiliSubtitlePluginTool(Tool):
             yield self.create_text_message(summary_text)
             
         except Exception as e:
-            import traceback
             error_type = type(e).__name__
             error_msg = str(e)
             error_traceback = traceback.format_exc()

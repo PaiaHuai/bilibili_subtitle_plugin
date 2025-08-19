@@ -1,6 +1,5 @@
 from typing import Any
 import httpx
-import urllib.parse
 import logging
 from dify_plugin.config.logger_format import plugin_logger_handler
 from dify_plugin import ToolProvider

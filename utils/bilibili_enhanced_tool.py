@@ -501,8 +501,7 @@ class BilibiliEnhancedTool:
             
         except Exception as e:
             print(f"获取字幕文本失败: {e}")
-            return None
-    
+            return None    
     def get_credentials_status(self) -> Dict[str, Any]:
         """获取凭证状态信息"""
         return {
