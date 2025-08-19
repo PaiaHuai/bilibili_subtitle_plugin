@@ -1,6 +1,6 @@
 # Privacy Policy for Bilibili Subtitle Plugin
 
-Last updated: [Current Date]
+Last updated: 2025-08-19
 
 This Privacy Policy describes how the Bilibili Subtitle Plugin ("Plugin", "we", "us", or "our") handles your information when you use our plugin within the Dify platform.
 
