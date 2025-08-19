@@ -1,79 +1,74 @@
-# 哔哩哔哩字幕获取插件
+# Bilibili Subtitle Extraction Plugin
 
-## 简介
+## Introduction
 
-这是一个用于从哔哩哔哩(Bilibili)视频中提取字幕的Dify插件。通过提供视频ID，插件可以自动获取并返回视频的字幕内容，方便用户进行内容分析、学习或其他用途。
+This is a Dify plugin for extracting subtitles from Bilibili videos. By providing a video ID, the plugin can automatically retrieve and return the subtitle content of the video, facilitating content analysis, learning, or other purposes.
 
-**注意：本项目主要由大模型辅助完成，代码可能存在潜在问题或不完善之处，使用前请仔细测试并根据实际需求进行调整。**
+## Features
 
-## 功能特点
+- Extract Bilibili video subtitles using video ID
+- Return basic video information such as title and author
+- Support multiple video ID formats including BV and AV numbers
+- Simple and user-friendly interface design
 
-- 支持通过视频ID提取B站视频字幕
-- 返回视频标题、作者等基本信息
-- 支持BV号、AV号等多种格式的视频ID
-- 简单易用的接口设计
+## Prerequisites
 
-## 使用前提
-
-使用本插件需要提供B站账号的以下Cookie信息：
+To use this plugin, you need to provide the following Cookie information from your Bilibili account:
 
 - SESSDATA
 - BILI_JCT
 - BUVID3
 
-这些信息可以通过登录B站后，从浏览器开发者工具的Cookie中获取。
+This information can be obtained from the browser's developer tools after logging into Bilibili.
 
-### 凭证获取方法
+### How to Obtain Credentials
 
-![凭证获取示意图](_assets/凭证获取.png)
+![Credential Acquisition Guide](_assets/凭证获取.png)
 
-按照上图所示步骤获取Cookie信息：
-1. 登录哔哩哔哩网站
-2. 打开浏览器开发者工具（F12）
-3. 切换到Application/存储标签页
-4. 在左侧找到Cookies部分
-5. 点击bilibili.com域名
-6. 找到并复制SESSDATA、BILI_JCT、BUVID3的值
+Follow the steps shown in the image above to obtain Cookie information:
+1. Log in to the Bilibili website
+2. Open browser developer tools (F12)
+3. Switch to the Application/Storage tab
+4. Find the Cookies section on the left
+5. Click on the bilibili.com domain
+6. Find and copy the values of SESSDATA, BILI_JCT, and BUVID3
 
-**重要提醒：凭证信息会过期**
+**Important Notice: Credentials Will Expire**
 
-- Cookie信息（SESSDATA、BILI_JCT、BUVID3）具有时效性，通常会在一段时间后过期
-- 如果插件出现认证失败或无法获取字幕的情况，请重新获取最新的Cookie信息
-- 建议定期更新凭证信息以确保插件正常工作
+- Cookie information (SESSDATA, BILI_JCT, BUVID3) has a limited lifespan and will typically expire after some time
+- If the plugin encounters authentication failures or cannot retrieve subtitles, please obtain fresh Cookie information
+- It is recommended to update credential information regularly to ensure the plugin works properly
 
-## 使用方法
+## Usage
 
-1. 在Dify平台安装本插件
-2. 配置必要的Cookie信息
-3. 在对话中提供B站视频ID，例如：
-   ```
-   请获取这个视频的字幕：BV1GJ411x7h7
-   ```
-4. 插件将自动提取并返回字幕内容
+1. Install this plugin on the Dify platform
+2. Configure the necessary Cookie information
+![Credential Configuration](_assets/填写凭证.png)
+3. Enter a Bilibili video ID, for example: BV1GJ411x7h7
+![Enter Video ID](_assets/填入视频ID.png)
+4. The plugin will automatically extract and return subtitle content (currently defaults to Chinese subtitles, or the first available subtitle if Chinese is not available)
+![Output Example](_assets/输出.png)
 
-## 注意事项
+## Notes
 
-- 只能提取已有字幕的视频，不支持自动生成字幕
-- 需要有效的B站账号Cookie信息
-- 视频ID必须是有效的B站视频ID
-- 支持BV号、AV号等多种格式的视频ID
+- Can only extract subtitles from videos that already have subtitles; does not support automatic subtitle generation
+- Requires valid Bilibili account Cookie information
+- Video ID must be a valid Bilibili video ID
+- Supports multiple formats including BV and AV numbers
 
-## 隐私说明
+## Privacy Statement
 
-本插件仅用于提取公开视频的字幕内容，不会收集或存储用户的个人信息。提供的Cookie信息仅用于API访问授权，不会被用于其他用途。
+This plugin is only used to extract subtitle content from public videos and does not collect or store users' personal information. The provided Cookie information is only used for API access authorization and will not be used for other purposes.
 
-## 参考项目
+## Referenced Projects
 
-本项目在开发过程中参考了以下优秀的开源项目：
+This project referenced the following excellent open-source projects during development:
 
-- [dify-plugin-Bilibili-Search](https://github.com/jingfelix/dify-plugin-Bilibili-Search) - Dify平台的B站搜索插件，提供了插件开发的参考实现
-- [bilibili-api](https://github.com/Nemo2011/bilibili-api) - 功能完整的B站API调用库，提供了丰富的API接口参考
+- [dify-plugin-Bilibili-Search](https://github.com/jingfelix/dify-plugin-Bilibili-Search) - A Bilibili search plugin for the Dify platform, providing reference implementation for plugin development
+- [bilibili-api](https://github.com/Nemo2011/bilibili-api) - A comprehensive Bilibili API library providing rich API interface references
 
-感谢这些项目的贡献者为开源社区做出的贡献。
+Thanks to the contributors of these projects for their contributions to the open-source community.
 
-## 许可证
+## License
 
-本项目采用MIT许可证。
-
-
-
+This project is licensed under the MIT License.
