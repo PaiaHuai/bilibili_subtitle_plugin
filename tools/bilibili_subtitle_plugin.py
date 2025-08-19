@@ -77,8 +77,7 @@ class BilibiliSubtitlePluginTool(Tool):
             video_info = enhanced_tool.get_video_info(video_id)
             if not video_info:
                 logger.error(f"Failed to get video information for {video_id}")
-                yield self.create_text_message(f"Error: Failed to get video information for {video_id}")
-                return
+                raise Exception(f"Failed to get video information for {video_id}")
             
             video_title = video_info.get('title', 'Unknown Title')
             video_author = video_info.get('owner', {}).get('name', 'Unknown Author')
@@ -90,8 +89,7 @@ class BilibiliSubtitlePluginTool(Tool):
             
             if not subtitle_text:
                 logger.warning(f"No available subtitles found for video '{video_title}'")
-                yield self.create_text_message(f"Video '{video_title}' has no available subtitles.")
-                return
+                raise Exception(f"Video '{video_title}' has no available subtitles.")
             
             # Get subtitle info to determine language
             pages = enhanced_tool.get_video_pages(video_id)
@@ -130,9 +128,14 @@ class BilibiliSubtitlePluginTool(Tool):
             logger.error(f"Failed to get subtitles: {error_type} - {error_msg}")
             logger.error(f"Exception traceback: \n{error_traceback}")
             
+            # Return empty output variables for declared output schema
+            yield self.create_variable_message("subtitles", "")
+            yield self.create_variable_message("video_title", "")
+            yield self.create_variable_message("video_author", "")
+            yield self.create_variable_message("subtitle_language", "")
+            
             # Return error message to user
             yield self.create_text_message(f"Failed to get subtitles: {error_type} - {error_msg}")
-            return
 
     def _normalize_video_id(self, video_id: str) -> str:
         """
