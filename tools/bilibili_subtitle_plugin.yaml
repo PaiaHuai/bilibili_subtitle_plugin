@@ -25,6 +25,20 @@ parameters:
       pt_BR: O ID do vídeo do Bilibili (número BV ou AV) do qual extrair legendas
     llm_description: "The Bilibili video ID in BV format (e.g., 'BV1GJ411x7h7') or AV format (e.g., 'av170001' or just '170001'). This should be the video identifier, not the full URL."
     form: llm
+  - name: part
+    type: number
+    required: false
+    default: 1
+    label:
+      en_US: Part Number
+      zh_Hans: 分P号
+      pt_BR: Número da Parte
+    human_description:
+      en_US: The part number of the video to extract subtitles from (default is 1)
+      zh_Hans: 要提取字幕的视频分P号（默认为1）
+      pt_BR: O número da parte do vídeo para extrair legendas (padrão é 1)
+    llm_description: "The part number of the video to extract subtitles from (default is 1). This is used for videos that have multiple parts (分P). If the video has only one part, this can be left as default."
+    form: llm
 output_schema:
   type: object
   properties:

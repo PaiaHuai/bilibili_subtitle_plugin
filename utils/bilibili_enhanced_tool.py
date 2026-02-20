@@ -540,7 +540,13 @@ def main():
                 print(f"✓ 视频标题: {video_info['title']}")
                 print(f"✓ 视频作者: {video_info['owner']['name']}")
                 print(f"✓ 视频时长: {video_info['duration']}秒")
-            
+
+            # 获取分P信息
+            pages = tool.get_video_pages(test_video_id)
+            print(f"视频分P数量: {len(pages) if pages else 0}")
+            if pages:
+                print(f"第一个分P的cid: {pages[0].get('cid')}")
+
             # 尝试获取字幕
             subtitle_text = tool.get_video_subtitle(test_video_id)
             if subtitle_text:

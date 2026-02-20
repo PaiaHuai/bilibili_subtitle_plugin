@@ -31,6 +31,7 @@ class BilibiliSubtitlePluginTool(Tool):
         Args:
             tool_parameters: Dictionary containing tool input parameters:
                 - video_id (str): Bilibili video ID (BV number or AV number)
+                - part (int): Part number of the video (default is 1)
 
         Yields:
             ToolInvokeMessage: Message containing the extracted subtitle content
@@ -52,7 +53,8 @@ class BilibiliSubtitlePluginTool(Tool):
         # 2. Get tool input parameters
         logger.info("Getting tool input parameters")
         video_id = tool_parameters.get("video_id", "")
-        logger.info(f"Video ID: {video_id}")
+        part = tool_parameters.get("part", 1)
+        logger.info(f"Video ID: {video_id}, Part: {part}")
 
         if not video_id:
             logger.error("Video ID is empty")
@@ -85,16 +87,16 @@ class BilibiliSubtitlePluginTool(Tool):
             
             # Get subtitle text using the enhanced tool
             logger.info("Getting video subtitle")
-            subtitle_text = enhanced_tool.get_video_subtitle(video_id)
+            subtitle_text = enhanced_tool.get_video_subtitle(video_id, page=part)
             
             if not subtitle_text:
                 logger.warning(f"No available subtitles found for video '{video_title}'")
                 raise Exception(f"Video '{video_title}' has no available subtitles.")
             
             # Get subtitle info to determine language
-            pages = enhanced_tool.get_video_pages(video_id)
-            if pages and len(pages) > 0:
-                cid = pages[0].get('cid')
+            parts = enhanced_tool.get_video_pages(video_id)
+            if parts and len(parts) > 0:
+                cid = parts[part - 1].get('cid') if part <= len(parts) else parts[0].get('cid')
                 subtitle_info = enhanced_tool.get_subtitle_info(video_id, cid)
                 subtitle_language = "Unknown Language"
                 if subtitle_info and len(subtitle_info) > 0:
