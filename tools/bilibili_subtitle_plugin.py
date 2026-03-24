@@ -24,6 +24,8 @@ class BilibiliSubtitlePluginTool(Tool):
     哔哩哔哩字幕提取工具
     """
 
+    _SUPPORTED_SUBTITLE_LANGS = {"zh-Hans", "en-US", "ja", "ko", "de-DE", "ru"}
+
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage, None, None]:
         """
         Extract subtitles from Bilibili videos using BilibiliEnhancedTool
@@ -32,6 +34,7 @@ class BilibiliSubtitlePluginTool(Tool):
             tool_parameters: Dictionary containing tool input parameters:
                 - video_id (str): Bilibili video ID (BV number or AV number)
                 - part (int): Part number of the video (default is 1)
+                - subtitle_lang (str): Subtitle language to fetch (optional)
 
         Yields:
             ToolInvokeMessage: Message containing the extracted subtitle content
@@ -54,7 +57,10 @@ class BilibiliSubtitlePluginTool(Tool):
         logger.info("Getting tool input parameters")
         video_id = tool_parameters.get("video_id", "")
         part = tool_parameters.get("part", 1)
-        logger.info(f"Video ID: {video_id}, Part: {part}")
+        subtitle_lang_raw = tool_parameters.get("subtitle_lang", "")
+        subtitle_lang = self._parse_subtitle_lang(subtitle_lang_raw) or "zh"
+
+        logger.info(f"Video ID: {video_id}, Part: {part}, Subtitle Lang: {subtitle_lang}")
 
         if not video_id:
             logger.error("Video ID is empty")
@@ -85,24 +91,45 @@ class BilibiliSubtitlePluginTool(Tool):
             video_author = video_info.get('owner', {}).get('name', 'Unknown Author')
             logger.info(f"Video info: title='{video_title}', author='{video_author}'")
             
+            # Get and validate pages
+            parts_info = enhanced_tool.get_video_pages(video_id)
+            total_parts = len(parts_info) if parts_info else 0
+            try:
+                used_part = int(part)
+            except (TypeError, ValueError):
+                used_part = 1
+            # Check used_part
+            if total_parts and (used_part < 1 or used_part > total_parts):
+                note = f"Requested part {part} is out of range (total {total_parts}). Please select a part between 1 and {total_parts}."
+                yield self.create_variable_message("subtitles", "")
+                yield self.create_variable_message("video_title", video_title)
+                yield self.create_variable_message("video_author", video_author)
+                yield self.create_variable_message("subtitle_language", "")
+                yield self.create_text_message(note)
+                return
+            # Get cid
+            cid = None
+            if parts_info:
+                idx = used_part - 1
+                if idx < 0 or idx >= len(parts_info):
+                    idx = 0
+                cid = parts_info[idx].get("cid")
+            
             # Get subtitle text using the enhanced tool
             logger.info("Getting video subtitle")
-            subtitle_text = enhanced_tool.get_video_subtitle(video_id, page=part)
+            subtitle_text = enhanced_tool.get_video_subtitle(video_id, page=used_part, lang=subtitle_lang)
             
             if not subtitle_text:
                 logger.warning(f"No available subtitles found for video '{video_title}'")
                 raise Exception(f"Video '{video_title}' has no available subtitles.")
             
             # Get subtitle info to determine language
-            parts = enhanced_tool.get_video_pages(video_id)
-            if parts and len(parts) > 0:
-                cid = parts[part - 1].get('cid') if part <= len(parts) else parts[0].get('cid')
-                subtitle_info = enhanced_tool.get_subtitle_info(video_id, cid)
-                subtitle_language = "Unknown Language"
-                if subtitle_info and len(subtitle_info) > 0:
-                    subtitle_language = subtitle_info[0].get('lan_doc', 'Unknown Language')
-            else:
-                subtitle_language = "Unknown Language"
+            subtitle_language = self._get_selected_subtitle_language_doc(
+                enhanced_tool=enhanced_tool,
+                video_id=video_id,
+                subtitle_lang=subtitle_lang,
+                cid=cid,
+            )
             
             logger.info(f"Subtitle content processed: {len(subtitle_text)} characters")
             
@@ -117,7 +144,10 @@ class BilibiliSubtitlePluginTool(Tool):
             yield self.create_variable_message("subtitle_language", subtitle_language)
             
             # Also provide a summary text message for user
-            summary_text = f"Successfully extracted subtitles from video '{video_title}' by {video_author}. Language: {subtitle_language}. Subtitle length: {len(subtitle_text)} characters."
+            summary_text = (
+                f"Successfully extracted subtitles from video '{video_title}' by {video_author}. "
+                f"Language: {subtitle_language}. Subtitle length: {len(subtitle_text)} characters."
+            )
             yield self.create_text_message(summary_text)
             
         except Exception as e:
@@ -177,3 +207,53 @@ class BilibiliSubtitlePluginTool(Tool):
         
         logger.warning(f"Invalid video ID format: {video_id}")
         return ""
+
+    def _parse_subtitle_lang(self, subtitle_lang: Any) -> str:
+        if subtitle_lang is None:
+            return ""
+        lang = str(subtitle_lang).strip()
+        if not lang:
+            return ""
+
+        if "|" in lang:
+            lang = lang.split("|", 1)[0].strip()
+        if " " in lang:
+            lang = lang.split(" ", 1)[0].strip()
+
+        if lang in self._SUPPORTED_SUBTITLE_LANGS:
+            return lang
+
+        return ""
+
+    def _get_selected_subtitle_language_doc(
+        self,
+        enhanced_tool: BilibiliEnhancedTool,
+        video_id: str,
+        subtitle_lang: str,
+        cid: Any = None,
+    ) -> str:
+        try:
+            if not cid:
+                return "Unknown Language"
+            subtitle_info = enhanced_tool.get_subtitle_info(video_id, cid)
+            if not subtitle_info:
+                return "Unknown Language"
+
+            target_subtitle = None
+            for subtitle in subtitle_info:
+                if subtitle_lang in subtitle.get("lan", ""):
+                    target_subtitle = subtitle
+                    break
+            if not target_subtitle and subtitle_info:
+                target_subtitle = subtitle_info[0]
+
+            if not target_subtitle:
+                return "Unknown Language"
+
+            return (
+                target_subtitle.get("lan_doc")
+                or target_subtitle.get("lan")
+                or "Unknown Language"
+            )
+        except Exception:
+            return "Unknown Language"

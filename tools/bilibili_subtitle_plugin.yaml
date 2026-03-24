@@ -39,6 +39,44 @@ parameters:
       pt_BR: O número da parte do vídeo para extrair legendas (padrão é 1)
     llm_description: "The part number of the video to extract subtitles from (default is 1). This is used for videos that have multiple parts (分P). If the video has only one part, this can be left as default."
     form: llm
+  - name: subtitle_lang
+    type: select
+    required: false
+    label:
+      en_US: Subtitle Language
+      zh_Hans: 字幕语言
+      pt_BR: Idioma da Legenda
+    human_description:
+      en_US: Optional. Select which subtitle language to fetch. If not selected, prefer Chinese.
+      zh_Hans: 可选。选择要拉取的字幕语言；未选择时按默认逻辑优先拉取中文。
+      pt_BR: Opcional. Selecione o idioma da legenda. Se não selecionado, prefere chinês.
+    llm_description: "Optional. The subtitle language to fetch. If empty, the tool will use the default behavior (prefer Chinese subtitles, otherwise use the first available subtitle)."
+    form: form
+    options:
+      - value: "zh-Hans"
+        label:
+          en_US: Chinese
+          zh_Hans: 中文
+      - value: "en-US"
+        label:
+          en_US: English
+          zh_Hans: 英文
+      - value: "ja"
+        label:
+          en_US: Japanese
+          zh_Hans: 日本語
+      - value: "ko"
+        label:
+          en_US: Korean
+          zh_Hans: 韩语
+      - value: "de-DE"
+        label:
+          en_US: German
+          zh_Hans: 德语
+      - value: "ru"
+        label:
+          en_US: Russian
+          zh_Hans: 俄语
 output_schema:
   type: object
   properties:
