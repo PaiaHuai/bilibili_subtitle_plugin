@@ -101,10 +101,14 @@ class BilibiliSubtitlePluginTool(Tool):
             # Check used_part
             if total_parts and (used_part < 1 or used_part > total_parts):
                 note = f"Requested part {part} is out of range (total {total_parts}). Please select a part between 1 and {total_parts}."
-                yield self.create_variable_message("subtitles", "")
-                yield self.create_variable_message("video_title", video_title)
-                yield self.create_variable_message("video_author", video_author)
-                yield self.create_variable_message("subtitle_language", "")
+                yield self.create_json_message({
+                    "subtitles": "",
+                    "video_title": video_title,
+                    "video_author": video_author,
+                    "subtitle_language": "",
+                    "total_parts": total_parts,
+                    "current_part": used_part
+                })
                 yield self.create_text_message(note)
                 return
             # Get cid
@@ -133,15 +137,17 @@ class BilibiliSubtitlePluginTool(Tool):
             
             logger.info(f"Subtitle content processed: {len(subtitle_text)} characters")
             
-            # Return result using variable messages for declared output schema
+            # Return result in JSON format
             logger.info("Preparing subtitle results for response")
             logger.info(f"Subtitles successfully retrieved for video '{video_title}'")
-            
-            # Return each declared output variable separately
-            yield self.create_variable_message("subtitles", subtitle_text)
-            yield self.create_variable_message("video_title", video_title)
-            yield self.create_variable_message("video_author", video_author)
-            yield self.create_variable_message("subtitle_language", subtitle_language)
+            yield self.create_json_message({
+                "subtitles": subtitle_text,
+                "video_title": video_title,
+                "video_author": video_author,
+                "subtitle_language": subtitle_language,
+                "total_parts": total_parts,
+                "current_part": used_part
+            })
             
             # Also provide a summary text message for user
             summary_text = (
@@ -159,11 +165,15 @@ class BilibiliSubtitlePluginTool(Tool):
             logger.error(f"Failed to get subtitles: {error_type} - {error_msg}")
             logger.error(f"Exception traceback: \n{error_traceback}")
             
-            # Return empty output variables for declared output schema
-            yield self.create_variable_message("subtitles", "")
-            yield self.create_variable_message("video_title", "")
-            yield self.create_variable_message("video_author", "")
-            yield self.create_variable_message("subtitle_language", "")
+            # Return empty output as JSON
+            yield self.create_json_message({
+                "subtitles": "",
+                "video_title": "",
+                "video_author": "",
+                "subtitle_language": "",
+                "total_parts": 0,
+                "current_part": 0
+            })
             
             # Return error message to user
             yield self.create_text_message(f"Failed to get subtitles: {error_type} - {error_msg}")

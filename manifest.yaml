@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.0.2
 type: plugin
 author: paiahuai
 name: bilibili_subtitle_plugin
@@ -8,10 +8,10 @@ label:
   zh_Hans: 哔哩哔哩字幕获取插件
   pt_BR: Plugin de Legendas do Bilibili
 description:
-  en_US: Extract subtitles from Bilibili videos by providing a video ID (multiple parts supported)
-  ja_JP: 動画IDを提供することでビリビリ動画から字幕を抽出する （複数のパートに対応）
-  zh_Hans: 通过提供视频ID从哔哩哔哩视频中提取字幕 （支持多分P）
-  pt_BR: Extrair legendas de vídeos do Bilibili fornecendo um ID de vídeo (suporta várias partes)
+  en_US: Extract subtitles from Bilibili videos by providing a video ID (multi-part and multi-language supported)
+  ja_JP: 動画IDを提供することでビリビリ動画から字幕を抽出する（複数パート・複数言語に対応）
+  zh_Hans: 通过提供视频ID从哔哩哔哩视频中提取字幕（支持多分P、多语言）
+  pt_BR: Extrair legendas de vídeos do Bilibili fornecendo um ID de vídeo (suporta múltiplas partes e múltiplos idiomas)
 icon: icon.svg
 icon_dark: icon-dark.svg
 resource:
@@ -33,7 +33,7 @@ plugins:
   tools:
     - provider/bilibili_subtitle_plugin.yaml
 meta:
-  version: 0.0.1
+  version: 0.0.2
   arch:
     - amd64
     - arm64

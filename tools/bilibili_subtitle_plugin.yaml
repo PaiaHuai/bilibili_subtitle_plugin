@@ -92,6 +92,12 @@ output_schema:
     subtitle_language:
       type: string
       description: The language of the extracted subtitles
+    total_parts:
+      type: number
+      description: Total number of parts (pages) of the video
+    current_part:
+      type: number
+      description: The current part number used/requested
 extra:
   python:
     source: tools/bilibili_subtitle_plugin.py

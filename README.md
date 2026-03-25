@@ -9,6 +9,8 @@ This is a Dify plugin for extracting subtitles from Bilibili videos. By providin
 - Extract Bilibili video subtitles using video ID
 - Return basic video information such as title and author
 - Support multiple video ID formats including BV and AV numbers
+- Optional subtitle language selection (dropdown)
+- Optional part selection for multi-part videos
 - Simple and user-friendly interface design
 
 ## Prerequisites
@@ -46,13 +48,23 @@ Follow the steps shown in the image above to obtain Cookie information:
 <img src="_assets/填写凭证.png" alt="Credential Configuration" style="zoom:50%;" />
 3. Enter a Bilibili video ID, for example: ``BV1GJ411x7h7``
 <img src="_assets/填入视频ID.png" alt="Enter Video ID" style="zoom: 50%;" />
-4. The plugin will automatically extract and return subtitle content
+4. (Optional) Select the subtitle language from the dropdown
+5. (Optional) Set the part number if the video has multiple parts
+6. The plugin will automatically extract and return subtitle content
 <img src="_assets/输出.png" alt="Output Example" style="zoom: 50%;" />
 
 ## Notes
 
 - Can only extract subtitles from videos that already have subtitles; does not support automatic subtitle generation
-- Currently defaults to Chinese subtitles, or the first available subtitle if Chinese is not available
+- If subtitle language is not selected, the plugin prefers Chinese subtitles, or falls back to the first available subtitle
+- Supported subtitle language options (dropdown):
+  - zh-Hans (Chinese)
+  - en-US (English)
+  - ja (Japanese)
+  - ko (Korean)
+  - de-DE (German)
+  - ru (Russian)
+- If the provided part number is out of range, the plugin will return an English prompt without fetching subtitles
 - Requires valid Bilibili account Cookie information
 - Video ID must be a valid Bilibili video ID
 - Supports multiple formats including BV and AV numbers
